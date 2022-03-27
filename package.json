@@ -1,0 +1,41 @@
+{
+  "name": "smartrails-server",
+  "version": "1.0.0",
+  "description": "Online railway reservation system api",
+  "author": "Koscee",
+  "license": "ISC",
+  "main": "./src/index.js",
+  "apidoc": {
+    "title": "smartRails Api Documentation",
+    "name": "smartRails",
+    "description": "Online railway reservation system api project"
+  },
+  "scripts": {
+    "test": "cross-env TEST_DB=smartrails_test nodemon --exec mocha --recursive -R min",
+    "test-coverage": "nyc npm test",
+    "start": "node src/index.js",
+    "server": "nodemon src/index.js",
+    "apidocs": "apidoc -i ./src/api/apiDocs/ -e node_modules -o ./apidocs"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.6"
+  },
+  "devDependencies": {
+    "apidoc": "^0.51.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "mocha": "^9.2.2",
+    "nodemon": "^2.0.15",
+    "nyc": "^15.1.0",
+    "prettier": "^2.5.1",
+    "supertest": "^6.2.2"
+  }
+}
