@@ -11,7 +11,7 @@
     "description": "Online railway reservation system api project"
   },
   "scripts": {
-    "test": "cross-env TEST_DB=smartrails_test nodemon --exec mocha --recursive -R min",
+    "test": "cross-env NODE_ENV=test nodemon --exec mocha --recursive -R min",
     "test-coverage": "nyc npm test",
     "start": "node src/index.js",
     "server": "nodemon src/index.js",

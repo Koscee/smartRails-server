@@ -6,7 +6,12 @@ const connectDB = require('./config/db');
 const app = express();
 
 // connect to the database
-connectDB();
+if (process.env.NODE_ENV !== 'test') {
+  connectDB('smartrails');
+}
+
+// for parsing application/json
+app.use(express.json());
 
 // serve static files
 app.use('/apidocs', express.static('./apidocs'));

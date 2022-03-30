@@ -1,1 +1,1 @@
-exports.testService = require('./testService');
+exports.stationService = require('./station_service');
