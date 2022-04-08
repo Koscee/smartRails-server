@@ -16,9 +16,11 @@
     "no-unused-vars": "warn",
     "no-console": "off",
     "func-names": "off",
+    "camelcase": "off",
     "no-process-exit": "warn",
     "object-shorthand": "off",
     "node/no-unsupported-features/es-syntax": "off",
-    "no-underscore-dangle": "warn"
+    "no-underscore-dangle": "warn",
+    "no-param-reassign": ["error", { "props": false }]
   }
 }

@@ -12,7 +12,23 @@ function validationErrorHandler(err, req, res, next) {
     });
 
     console.log(errorMap);
-    res.status(statusCode).send({ error: { status: statusCode, ...errorMap } });
+    res
+      .status(statusCode)
+      .send({ error: { status: statusCode, message: { ...errorMap } } });
+
+    return;
+  }
+
+  // MongoServerError: can't project geometry into spherical CRS
+  if (err.code && err.code === 16755) {
+    console.log('Err Coordinate', Object.keys(err));
+    res.status(statusCode).send({
+      error: {
+        status: statusCode,
+        message:
+          'longitude must be from -180 and 180, latitude must be from -90 and 90',
+      },
+    });
 
     return;
   }
@@ -25,7 +41,9 @@ function validationErrorHandler(err, req, res, next) {
     });
 
     console.log(errorMap);
-    res.status(statusCode).send({ error: { status: statusCode, ...errorMap } });
+    res
+      .status(statusCode)
+      .send({ error: { status: statusCode, message: { ...errorMap } } });
 
     return;
   }

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const routes = require('./api/routes');
 const connectDB = require('./config/db');
 
@@ -12,6 +13,8 @@ if (process.env.NODE_ENV !== 'test') {
 
 // for parsing application/json
 app.use(express.json());
+
+app.use(cors());
 
 // serve static files
 app.use('/apidocs', express.static('./apidocs'));
