@@ -31,7 +31,7 @@ module.exports = {
     const routeId = req.params.id;
     const routeProps = req.body;
 
-    // call the routeService getRoutes method
+    // call the routeService updateRoute method
     const updatedRoute = await routeService.updateRoute(routeId, routeProps);
     res.status(HttpStatus.OK).send(updatedRoute);
   },
