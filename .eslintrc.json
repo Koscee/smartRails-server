@@ -21,6 +21,8 @@
     "object-shorthand": "off",
     "node/no-unsupported-features/es-syntax": "off",
     "no-underscore-dangle": "warn",
-    "no-param-reassign": ["error", { "props": false }]
+    "no-param-reassign": ["error", { "props": false }],
+    "no-restricted-syntax": ["off", "ForOfStatement"],
+    "no-await-in-loop": "warn"
   }
 }

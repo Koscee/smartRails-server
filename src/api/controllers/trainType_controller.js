@@ -6,14 +6,14 @@ module.exports = {
   create: async function (req, res, next) {
     const trainTypeData = req.body;
 
-    // call the trainTypeService addRoute method
+    // call the trainTypeService addTrainType method
     const newTrainType = await trainTypeService.addTrainType(trainTypeData);
     res.status(HttpStatus.CREATED).send(newTrainType);
   },
 
   /* ****  @METHOD: handles GET request to /api/trains/types *** */
   getAll: async function (req, res, next) {
-    // call the trainTypeService getRoutes method
+    // call the trainTypeService getTrainTypes method
     const trainTypes = await trainTypeService.getTrainTypes();
     res.status(HttpStatus.OK).send(trainTypes);
   },
@@ -43,7 +43,7 @@ module.exports = {
   delete: async function (req, res, next) {
     const trainTypeId = req.params.id;
 
-    // call the trainTypeService getRoutes method
+    // call the trainTypeService deleteTrainType method
     const deletedTrainType = await trainTypeService.deleteTrainType(
       trainTypeId
     );

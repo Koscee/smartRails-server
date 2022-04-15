@@ -17,7 +17,7 @@ module.exports = {
 
     console.log('New TrainClass', trainTypeData);
 
-    // create and save new station to the db
+    // create and save new trainType to the db
     return Promise.resolve(TrainType.create(trainTypeData));
   },
 
@@ -33,14 +33,14 @@ module.exports = {
 
   /**
    * Finds and a particular trainType using the provided trainTypeId
-   * @param {Number} trainTypeId an Id (String)
+   * @param {String} trainTypeId an Id (String)
    * @returns a Promise of trainType Object
    */
   getTrainTypeById: async function (trainTypeId) {
     const mssg = `Train service type with id '${trainTypeId}' was not found.`;
 
     try {
-      // find the station if it exists
+      // find the trainType, if it exists
       const foundTrainType = await TrainType.findById(trainTypeId).select(
         '-__v'
       );
@@ -63,9 +63,9 @@ module.exports = {
 
   /**
    * Updates an existing trainType using the provided trainTypeId and trainTypeProps
-   * @param {Number} trainTypeId a trainType id
+   * @param {String} trainTypeId a trainType id
    * @param {trainType} trainTypeProps an Object of trainType props
-   * @returns a Promise of trainType Object
+   * @returns a Promise of updated trainType Object
    */
   updateTrainType: async function (trainTypeId, trainTypeProps) {
     // check if user is authorized
@@ -86,8 +86,8 @@ module.exports = {
 
   /**
    * Deletes an existing trainType using the provided trainTypeId
-   * @param {Number} trainTypeId a trainType id
-   * @returns a Promise of trainType Object
+   * @param {String} trainTypeId a trainType id
+   * @returns a Promise of deleted trainType Object
    */
   deleteTrainType: async function (trainTypeId) {
     // 1. check if user is authorized

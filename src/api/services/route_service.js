@@ -88,14 +88,14 @@ module.exports = {
 
   /**
    * Finds and a particular route using the provided routeId
-   * @param {Number} routeId an Id (String)
+   * @param {String} routeId an Id (String)
    * @returns a Promise of route Object
    */
   getRouteById: async function (routeId) {
     const mssg = `Route with id '${routeId}' was not found.`;
 
     try {
-      // find the station if it exists
+      // find the route if it exists
       const foundRoute = await Route.findById(routeId);
 
       // if doesnt exist throw notFound Error
@@ -121,7 +121,7 @@ module.exports = {
 
   /**
    * Updates an existing route using the provided routeId and routeProps
-   * @param {Number} routeId a route id
+   * @param {String} routeId a route id
    * @param {route} routeProps an Object of route props
    * @returns a Promise of route Object
    */
@@ -162,7 +162,7 @@ module.exports = {
 
   /**
    * Deletes an existing route using the provided routeId
-   * @param {Number} routeId a route id
+   * @param {String} routeId a route id
    * @returns a Promise of route Object
    */
   deleteRoute: async function (routeId) {

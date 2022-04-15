@@ -40,7 +40,7 @@ module.exports = {
   delete: async function (req, res, next) {
     const routeId = req.params.id;
 
-    // call the routeService getRoutes method
+    // call the routeService deleteRoute method
     const deletedRoute = await routeService.deleteRoute(routeId);
     res
       .status(HttpStatus.OK)

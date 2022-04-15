@@ -22,7 +22,7 @@ router.get('/', use(trainTypeController.getAll));
 /**
  * An Endpoint to fetch a particular trainType by id
  * @route /api/trains/types/:id
- * @access private
+ * @access public
  */
 router.get('/:id', use(trainTypeController.getById));
 
