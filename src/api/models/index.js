@@ -4,3 +4,4 @@ exports.Route = require('./route');
 exports.Train = require('./train');
 exports.TrainType = require('./trainType');
 exports.Seat = require('./seat');
+exports.Schedule = require('./schedule');

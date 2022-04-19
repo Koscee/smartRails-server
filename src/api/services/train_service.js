@@ -7,6 +7,8 @@ const { getTrainTypeById } = require('./trainType_service');
 module.exports = {
   refineCarsNumberFormat: function (carriages) {
     return carriages.map((c) => {
+      // remove spaces and characters that are not
+      // letters or digits from car_no
       const carNums = c.cars.map((car) =>
         car.replace(/\s|([^A-Za-z0-9])/g, '').toUpperCase()
       );
@@ -26,7 +28,6 @@ module.exports = {
     // check if train sevrice type exist
     await getTrainTypeById(trainData.service_class);
 
-    // remove trailing spaces from car numbers
     trainData.carriages = this.refineCarsNumberFormat(trainData.carriages);
 
     // set the current location of the tarin using the route start station
@@ -91,7 +92,10 @@ module.exports = {
     const mssg = `Train '${trainNo}' doesn't exist.`;
 
     // find the train if it exists
-    const foundTrain = await Train.find({ train_no: trainNo }).select('-__v');
+    const foundTrain = await Train.findOne({ train_no: trainNo })
+      .populate('service_class')
+      .populate('route')
+      .select('-__v');
 
     // if doesnt exist throw notFound Error
     if (!foundTrain) {

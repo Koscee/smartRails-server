@@ -54,6 +54,7 @@ const TrainSchema = new Schema(
 
 // calculates the total_cars and pssngr_capacity before saving a train
 TrainSchema.pre('save', function (next) {
+  console.log('TRAIN PRE-SAVE TRIGGERED');
   let totalNumOfCars = 0;
   let totalNumOfPssngrs = 0;
 
@@ -105,11 +106,20 @@ TrainSchema.post('save', async (doc, next) => {
 });
 
 // deletes associated seats after a train is deleted
-TrainSchema.post('deleteOne', { document: true, query: false }, (doc, next) => {
-  const Seat = mongoose.model('seat');
+TrainSchema.post(
+  'deleteOne',
+  { document: true, query: false },
+  async (doc, next) => {
+    const Seat = mongoose.model('seat');
+    const Schedule = mongoose.model('schedule');
 
-  Seat.deleteMany({ train_no: doc.train_no }).then(() => next());
-});
+    // delete all associated schedules
+    await Schedule.deleteMany({ train_no: doc.train_no });
+    // delete all associated seats
+    await Seat.deleteMany({ train_no: doc.train_no });
+    next();
+  }
+);
 
 const Train = mongoose.model('train', TrainSchema);
 

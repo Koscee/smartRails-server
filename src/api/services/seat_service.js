@@ -25,4 +25,12 @@ module.exports = {
       throw ApiError.badRequest(`${error.path} is not a valid url query key`);
     }
   },
+
+  updateSeats: async function (train_no, updateQuery) {
+    try {
+      await Seat.updateMany({ train_no }, updateQuery);
+    } catch (error) {
+      throw ApiError.serverError(`Unable to update ${train_no} seats`);
+    }
+  },
 };

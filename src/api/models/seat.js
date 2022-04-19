@@ -15,8 +15,17 @@ const SeatSchema = new Schema(
       required: [true, 'train number of seat is required'],
     },
 
-    // TODO: change type to aval_jrnys schema
-    aval_jrnys: { type: [{}], default: [] },
+    aval_jrnys: {
+      type: [
+        {
+          from: String,
+          to: String,
+          fromIndex: Number,
+          toIndex: Number,
+        },
+      ],
+      default: [],
+    },
 
     status: { type: Boolean, default: 0 },
   },
