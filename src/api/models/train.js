@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { removeSpaces } = require('../utils/formatString');
 const PointSchema = require('./schemas/PointSchema');
 const CarriageSchema = require('./schemas/TrainCarriageSchema');
 
@@ -11,7 +12,7 @@ const TrainSchema = new Schema(
       required: [true, 'train number is required'],
       unique: true,
       validate: {
-        validator: (trainNo) => trainNo !== ' ',
+        validator: (trainNo) => removeSpaces(trainNo) !== '',
         message: 'train number should not be blank',
       },
     },

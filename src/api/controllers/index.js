@@ -5,3 +5,4 @@ exports.trainTypeController = require('./trainType_controller');
 exports.seatController = require('./seat_controller');
 exports.trainController = require('./train_controller');
 exports.scheduleController = require('./schedule_controller');
+exports.passengerController = require('./passenger_controller');
