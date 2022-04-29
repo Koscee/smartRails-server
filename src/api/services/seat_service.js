@@ -26,6 +26,23 @@ module.exports = {
     }
   },
 
+  /**
+   * Finds an available seat using the seat type, depature station and arrival station
+   * @param {String} type a seat type (String)
+   * @param {String} depStation depature station (String)
+   * @param {String} arrStation arrival station (String)
+   * @returns a Promise of seat Object or null
+   */
+  getAvailableSeat: async function (type, depStation, arrStation) {
+    // findOne funciton returns null if seat is not found
+    const availableSeat = await Seat.findOne({
+      type,
+      status: true,
+      aval_jrnys: { $elemMatch: { from: depStation, to: arrStation } },
+    });
+    return availableSeat;
+  },
+
   updateSeats: async function (train_no, updateQuery) {
     try {
       await Seat.updateMany({ train_no }, updateQuery);

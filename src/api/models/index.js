@@ -6,3 +6,4 @@ exports.TrainType = require('./trainType');
 exports.Seat = require('./seat');
 exports.Schedule = require('./schedule');
 exports.Passenger = require('./passenger');
+exports.Booking = require('./booking');

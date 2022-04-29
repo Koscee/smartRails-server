@@ -93,7 +93,7 @@ module.exports = {
     const train = await getTrainByTrainNo(train_no);
     const {
       route: { start_station: origin, end_station: dest, stops, pathsInfo },
-      service_class: { avg_speed },
+      service_class: { avg_speed, rail_type },
       carriages,
     } = train;
 
@@ -122,7 +122,7 @@ module.exports = {
       const { s1TimeInfo, s2TimeInfo, totalTime, runTime } =
         this.extractJrnyTimeInfo(stopsTimeInfo, path, avg_speed);
 
-      // generate tickets
+      // generate available tickets
       const tickets = carriages.map((c) => {
         // calculate ticket prices.
         const ticketPrice = calculateBasePrice(
@@ -143,31 +143,19 @@ module.exports = {
 
       return {
         origin: origin,
-
         destination: dest,
-
         from: path.from,
-
         to: path.to,
-
         train_no: train.train_no,
-
+        rail_type: rail_type,
         dep_date: s1TimeInfo.dep_date,
-
         arr_date: s2TimeInfo.arr_date,
-
         dep_time: s1TimeInfo.dep_time,
-
         arr_time: s2TimeInfo.arr_time,
-
         wait_time: s1TimeInfo.wait_time,
-
         total_time: totalTime,
-
         run_time: runTime,
-
         distance: path.distance,
-
         tickets: tickets,
       };
     });
@@ -199,17 +187,17 @@ module.exports = {
   },
 
   /**
-   * Finds all schedules that matches the searchFilter and returns their lists
+   * Finds all schedules that match the searchFilter and returns their lists
    * @param {queryObject} searchFilter an Object of schedule field, value pair
    * @returns a Promise array of schedule objects.
    */
   getSchedules: function (searchFilter) {
     console.log(searchFilter);
-    return Promise.resolve(Schedule.find(searchFilter).sort({ dep_date: -1 }));
+    return Promise.resolve(Schedule.find(searchFilter).sort({ distance: 1 }));
   },
 
   /**
-   * Finds and a particular schedule using the provided scheduleId
+   * Finds a particular schedule using the provided scheduleId
    * @param {String} scheduleId an Id (String)
    * @returns a Promise of schedule Object
    */
@@ -283,17 +271,11 @@ module.exports = {
 
       const fieldsData = {
         dep_date: s1TimeInfo.dep_date,
-
         arr_date: s2TimeInfo.arr_date,
-
         dep_time: s1TimeInfo.dep_time,
-
         arr_time: s2TimeInfo.arr_time,
-
         wait_time: s1TimeInfo.wait_time,
-
         total_time: totalTime,
-
         run_time: runTime,
       };
 
@@ -354,5 +336,49 @@ module.exports = {
 
     // if exist delete the record
     return Promise.resolve(Schedule.deleteMany({ train_no: train.train_no }));
+  },
+
+  /**
+   * updates number of available tickets for schedules
+   * @param {[String]} jrnyPaths lists of journey paths
+   * @param {String} seatType type of seat
+   * @param {Number} countIncValue increment value
+   * @param {Boolean} status if ticket is available or not
+   * @param {Number} statusChangeValue the number when status should change
+   * @returns a Promise of update result
+   */
+  updateAvailableTicketsCount: function (
+    jrnyPaths,
+    seatType,
+    countIncValue,
+    status,
+    statusChangeValue
+  ) {
+    return Promise.resolve(
+      Schedule.updateMany(
+        {
+          jrny_path: { $in: [...jrnyPaths] },
+          tickets: { $elemMatch: { seat_type: seatType } },
+        },
+        {
+          $inc: {
+            'tickets.$[elemFilter1].curr_count': countIncValue,
+          },
+
+          $set: { 'tickets.$[elemFilter2].is_available': status },
+        },
+        {
+          arrayFilters: [
+            { 'elemFilter1.seat_type': seatType },
+            {
+              'elemFilter2.seat_type': seatType,
+              'elemFilter2.curr_count': status
+                ? { $gte: statusChangeValue }
+                : { $lte: statusChangeValue },
+            },
+          ],
+        }
+      )
+    );
   },
 };

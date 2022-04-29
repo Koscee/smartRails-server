@@ -1,22 +1,8 @@
 const mongoose = require('mongoose');
-const {
-  removeSpaces,
-  capitalizeFirstLetter,
-  removeSpacesNumsAndSymbols,
-} = require('../utils/formatString');
+const formatName = require('../utils/formatName');
+const { checkFieldBlank } = require('../validations');
 
 const { Schema } = mongoose;
-
-function formatName(value) {
-  let name = value;
-  name = removeSpacesNumsAndSymbols(name);
-  name = capitalizeFirstLetter(name);
-  return name;
-}
-
-function checkFieldBlank(value) {
-  return removeSpaces(value) !== '';
-}
 
 function customMessage(field) {
   return `${field} should not be blank`;

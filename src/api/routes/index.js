@@ -6,6 +6,7 @@ const seatRoute = require('./seat.routes');
 const scheduleRoute = require('./schedule.routes');
 const trainRoute = require('./train.routes');
 const passengerRoute = require('./passenger.routes');
+const bookingRoute = require('./booking.routes');
 const { apiErrorHandler, validationErrorHandler } = require('../middlewares');
 const ApiError = require('../exceptions/ApiError');
 
@@ -24,6 +25,7 @@ module.exports = (app) => {
   app.use('/api/trains/schedules', scheduleRoute);
   app.use('/api/trains', trainRoute);
   app.use('/api/passengers', passengerRoute);
+  app.use('/api/bookings', bookingRoute);
 
   /* error handling middlewares
    * handles error thrown from any of the above route
