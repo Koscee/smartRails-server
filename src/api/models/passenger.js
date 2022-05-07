@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const formatName = require('../utils/formatName');
-const { checkFieldBlank } = require('../validations');
+const { checkFieldBlank, checkEmailValid } = require('../validations');
 
 const { Schema } = mongoose;
 
@@ -74,10 +74,10 @@ const PassengerSchema = new Schema(
     email: {
       type: String,
       lowercase: true,
-      validate: [checkFieldBlank, customMessage('email')],
+      validate: [checkEmailValid, 'invalid email'],
     },
 
-    // added_by: { type: Schema.Types.ObjectId, ref: 'user' },
+    added_by: { type: Schema.Types.ObjectId, ref: 'user' },
   },
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },

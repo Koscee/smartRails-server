@@ -24,10 +24,10 @@ module.exports = {
   /**
    * Creates a new booking using the provided requestData
    * @param {booking} requestData an Object of booking props
+   * @param {user} user an Object of the authenticated user
    * @returns a Promise of booking Object
    */
-  addBooking: async function (requestData) {
-    // TODO: check if user is authorized
+  addBooking: async function (requestData, user) {
     const {
       scheduleId,
       seatType: selectedSeatType,
@@ -54,6 +54,8 @@ module.exports = {
       if (Number(paidAmount) !== ticketObject.actual_price) {
         throw ApiError.badRequest('Invalid payment amount');
       }
+
+      // TODO: check if passenger has already booked a seat
 
       // find an available seat
       const { from: pssngrOrigin, to: pssngrDest } = schedule;
@@ -127,6 +129,8 @@ module.exports = {
         schedule: schedule._id,
         seat: avalSeat._id,
         paid_amount: paidAmount,
+        booked_by: user.id,
+        booked_at: user.station || 'online',
       };
 
       // save newOrder
@@ -141,13 +145,13 @@ module.exports = {
   },
 
   /**
-   * Finds all bookings and returns their lists
+   * Finds lists of bookings based on the searchFilter
+   * @param {{}} searchFilter a query object
    * @returns a Promise array of booking objects.
    */
-  getBookings: function () {
-    // TODO: check if user is authorized
+  getBookings: function (searchFilter) {
     return Promise.resolve(
-      Booking.find({})
+      Booking.find(searchFilter)
         .sort({ updated_at: -1 })
         .populate('seat', [...seatPopulateFields])
         .populate('passenger', [...pssngrPopulateFields])
@@ -161,7 +165,6 @@ module.exports = {
    * @returns a Promise of booking Object
    */
   getBookingById: async function (bookingId) {
-    // TODO: check if user is authorized
     const mssg = `order with id '${bookingId}' was not found.`;
 
     try {
@@ -283,8 +286,6 @@ module.exports = {
    * @returns a Promise of updated booking Object
    */
   updateBooking: async function (bookingId, requestData) {
-    // TODO: check if user is authorized
-
     // checks if order exists and handle errors
     const foundOrder = await this.getBookingById(bookingId);
 
@@ -292,7 +293,6 @@ module.exports = {
     Object.keys(requestData).forEach((key) => {
       foundOrder[key] = requestData[key];
     });
-
     console.log('Updated Order', foundOrder);
 
     /** TODO: call pre save middleware on booking schema to update or upsert passnger */
@@ -306,8 +306,6 @@ module.exports = {
    * @returns a Promise of deleted booking Object
    */
   deleteBooking: async function (bookingId) {
-    // TODO: check if user is authorized
-
     // checks if passenger exists and handle errors
     const foundOrder = await this.getBookingById(bookingId);
 

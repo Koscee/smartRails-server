@@ -15,6 +15,14 @@ class ApiError extends Error {
     return new ApiError(HttpStatus.BAD_REQUEST, msg);
   }
 
+  static unAuthorized(msg) {
+    return new ApiError(HttpStatus.UN_AUTHORIZED, msg);
+  }
+
+  static forbidden(msg) {
+    return new ApiError(HttpStatus.FORBIDDEN, msg);
+  }
+
   static serverError(msg) {
     return new ApiError(HttpStatus.INTERNAL_SERVER, msg);
   }

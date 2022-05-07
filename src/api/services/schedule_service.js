@@ -85,8 +85,6 @@ module.exports = {
    * @returns a Promise of schedule Object
    */
   addSchedules: async function (scheduleData) {
-    // check if user is authorized
-
     const { startDate, startTime, train_no } = scheduleData;
 
     // check if train exist
@@ -230,8 +228,6 @@ module.exports = {
    * @returns a Promise of updated schedule Object
    */
   updateSchedules: async function (scheduleProps) {
-    // TODO: check if user is authorized
-
     const { startDate, startTime, train_no } = scheduleProps;
 
     // check if train exist
@@ -307,8 +303,6 @@ module.exports = {
    * @returns a Promise of deleted schedule Object
    */
   deleteSchedules: async function (trainNo) {
-    // 1. check if user is authorized
-
     // check if train exist
     const train = await getTrainByTrainNo(trainNo);
 

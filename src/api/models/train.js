@@ -45,9 +45,9 @@ const TrainSchema = new Schema(
 
     nxt_station: { type: String, default: '' },
 
-    // added_by: { type: Schema.Types.ObjectId, ref: 'admin' },
+    added_by: { type: Schema.Types.ObjectId, ref: 'user' },
 
-    // updated_by: { type: Schema.Types.ObjectId, ref: 'admin' },
+    updated_by: { type: Schema.Types.ObjectId, ref: 'user' },
   },
 
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
@@ -106,7 +106,7 @@ TrainSchema.post('save', async (doc, next) => {
   next();
 });
 
-// deletes associated seats after a train is deleted
+// deletes associated seats and schedules after a train is deleted
 TrainSchema.post(
   'deleteOne',
   { document: true, query: false },

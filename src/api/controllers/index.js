@@ -7,3 +7,5 @@ exports.trainController = require('./train_controller');
 exports.scheduleController = require('./schedule_controller');
 exports.passengerController = require('./passenger_controller');
 exports.bookingController = require('./booking_controller');
+exports.userController = require('./user_controller');
+exports.systemRecordController = require('./systemRecord_controller');

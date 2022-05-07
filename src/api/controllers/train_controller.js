@@ -5,9 +5,10 @@ module.exports = {
   /* ****  @METHOD: handles POST request to /api/trains *** */
   create: async function (req, res, next) {
     const trainData = req.body;
+    const { user } = req;
 
     // call the trainService addTrain method
-    const newTrain = await trainService.addTrain(trainData);
+    const newTrain = await trainService.addTrain(trainData, user.id);
     res.status(HttpStatus.CREATED).send(newTrain);
   },
 
@@ -30,9 +31,14 @@ module.exports = {
   update: async function (req, res, next) {
     const trainId = req.params.id;
     const trainProps = req.body;
+    const { user } = req;
 
     // call the trainService updateTrain method
-    const updatedTrain = await trainService.updateTrain(trainId, trainProps);
+    const updatedTrain = await trainService.updateTrain(
+      trainId,
+      trainProps,
+      user.id
+    );
     res.status(HttpStatus.OK).send(updatedTrain);
   },
 

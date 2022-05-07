@@ -1,5 +1,7 @@
 const router = require('express').Router();
+const { ROLE } = require('../constants');
 const { stationController } = require('../controllers');
+const { authUser, checkUser, authRole } = require('../middlewares/auth');
 
 const use = (fn) => (req, res, next) => {
   Promise.resolve(fn(req, res, next)).catch(next);
@@ -10,12 +12,16 @@ const use = (fn) => (req, res, next) => {
  * @description Creates a new station
  * @access private
  */
-router.post('/', use(stationController.create));
+router.post(
+  '/',
+  [authUser, checkUser, authRole([ROLE.SUPER_ADMIN])],
+  use(stationController.create)
+);
 
 /**
  * @route /api/stations
  * @description Returns a list of all the stations
- * @access private
+ * @access public
  */
 router.get('/', use(stationController.getAll));
 
@@ -38,13 +44,21 @@ router.get('/name/:stationName', use(stationController.getByName));
  * @description Updates an existing station
  * @access private
  */
-router.put('/:id', use(stationController.update));
+router.put(
+  '/:id',
+  [authUser, checkUser, authRole([ROLE.SUPER_ADMIN])],
+  use(stationController.update)
+);
 
 /**
  * @route /api/stations/id
  * @description Deletes an existing station
  * @access private
  */
-router.delete('/:id', use(stationController.delete));
+router.delete(
+  '/:id',
+  [authUser, checkUser, authRole([ROLE.SUPER_ADMIN])],
+  use(stationController.delete)
+);
 
 module.exports = router;

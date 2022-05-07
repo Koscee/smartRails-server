@@ -7,3 +7,4 @@ exports.Seat = require('./seat');
 exports.Schedule = require('./schedule');
 exports.Passenger = require('./passenger');
 exports.Booking = require('./booking');
+exports.User = require('./user');

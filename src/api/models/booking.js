@@ -16,9 +16,9 @@ const BookingSchema = new Schema(
 
     refund_amount: { type: Number, default: 0 },
 
-    // booked_by: { type: Schema.Types.ObjectId, ref: 'user' },
+    booked_by: { type: Schema.Types.ObjectId, ref: 'user' },
 
-    // booked_at: String,
+    booked_at: { type: String, default: 'online' },
   },
 
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }

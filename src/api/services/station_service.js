@@ -33,10 +33,7 @@ module.exports = {
 
   /* **** @METHOD: handles creating a new station *** */
   addStation: async function (stationProps) {
-    // check if user is authorized
-    // validation check
-    // if (validation fails) throw new Error('mssg');
-
+    // build station data
     const newStation = await this.buildStationData(stationProps);
 
     console.log('New Station ', newStation);
@@ -93,16 +90,10 @@ module.exports = {
 
   /* **** @METHOD: handles updating a particlar station by its Id *** */
   updateStation: async function (stationId, stationProps) {
-    // only these fields should be accessible for update in the frontEnd
-    /* 
-        type: "city",
-        counters: ["A", "B", "C"],
-        is_closed: false,
-        service_hrs: "8:00am - 11:00pm",
-        tel_no: "001213344"
-    */
-
-    // check if user is authorized
+    /**
+     * only these fields should be accessible for update in the frontEnd
+     * { type, counters, is_closed, tel_no }
+     */
 
     // checks if station exists and handle errors
     const station = await this.getStationById(stationId);
@@ -120,8 +111,6 @@ module.exports = {
 
   /* **** @METHOD: handles deleting a particular station by its Id *** */
   deleteStation: async function (stationId) {
-    // 1. check if user is authorized
-
     // checks if station exists and handle errors
     const station = await this.getStationById(stationId);
 

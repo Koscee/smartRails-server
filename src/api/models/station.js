@@ -39,9 +39,9 @@ const StationSchema = new Schema(
 
     is_closed: { type: Boolean, default: false },
 
-    service_hrs: String,
-
     tel_no: String,
+
+    // service_hrs: String,
   },
 
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }

@@ -166,8 +166,6 @@ module.exports = {
    * @returns a Promise of route Object
    */
   deleteRoute: async function (routeId) {
-    // 1. check if user is authorized
-
     // checks if route exists and handle errors
     const route = await this.getRouteById(routeId);
 
@@ -205,7 +203,7 @@ module.exports = {
       }
       console.log(`Total distance: ${totalDistance}km`);
 
-      return parseFloat(totalDistance.toFixed(3));
+      return parseFloat(totalDistance.toFixed(1));
     } catch (error) {
       console.log(error);
       throw error;

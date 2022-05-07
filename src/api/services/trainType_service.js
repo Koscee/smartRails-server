@@ -8,8 +8,6 @@ module.exports = {
    * @returns a Promise of trainType Object
    */
   addTrainType: function (trainTypeData) {
-    // check if user is authorized
-    // validation check
     const { max_speed, min_speed } = trainTypeData;
 
     trainTypeData.max_speed = parseFloat(max_speed);
@@ -68,8 +66,6 @@ module.exports = {
    * @returns a Promise of updated trainType Object
    */
   updateTrainType: async function (trainTypeId, trainTypeProps) {
-    // check if user is authorized
-
     // checks if trainType exists and handle errors
     const trainType = await this.getTrainTypeById(trainTypeId);
 
@@ -90,8 +86,6 @@ module.exports = {
    * @returns a Promise of deleted trainType Object
    */
   deleteTrainType: async function (trainTypeId) {
-    // 1. check if user is authorized
-
     // checks if trainType exists and handle errors
     const trainType = await this.getTrainTypeById(trainTypeId);
 

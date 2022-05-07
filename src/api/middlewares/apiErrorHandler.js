@@ -9,6 +9,7 @@ function apiErrorHandler(err, req, res, next) {
     res.status(err.code).json({
       error: {
         status: err.code,
+        // name: err.name || 'ApiError',
         message: err.message,
       },
     });

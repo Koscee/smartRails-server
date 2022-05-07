@@ -7,3 +7,5 @@ exports.trainService = require('./train_service');
 exports.scheduleService = require('./schedule_service');
 exports.passengerService = require('./passenger_service');
 exports.bookingService = require('./booking_service');
+exports.userService = require('./user_service');
+exports.systemRecordService = require('./systemRecord_service');

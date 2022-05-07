@@ -20,12 +20,10 @@ module.exports = {
   /**
    * Creates a new train using the provided trainData
    * @param {train} trainData an Object of train props
+   * @param {String} userId id of the user adding the train
    * @returns a Promise of train Object
    */
-  addTrain: async function (trainData) {
-    // check if user is authorized
-
-    // check if train sevrice type exist
+  addTrain: async function (trainData, userId) {
     await getTrainTypeById(trainData.service_class);
 
     trainData.carriages = this.refineCarsNumberFormat(trainData.carriages);
@@ -35,6 +33,8 @@ module.exports = {
     const startStation = await getStationByName(route.start_station);
     trainData.curr_station = route.start_station;
     trainData.curr_location = startStation.location;
+    // save the id of the user adding the train
+    trainData.added_by = userId;
 
     // create and save new train to the db
     console.log(trainData);
@@ -110,11 +110,10 @@ module.exports = {
    * Updates an existing train using the provided trainId and trainProps
    * @param {String} trainId a train id
    * @param {train} trainProps an Object of train props
+   * @param {String} userId id of the user updating the train
    * @returns a Promise of updated train Object
    */
-  updateTrain: async function (trainId, trainProps) {
-    // check if user is authorized
-
+  updateTrain: async function (trainId, trainProps, userId) {
     // checks if train exists and handle errors
     const train = await this.getTrainById(trainId);
 
@@ -130,6 +129,8 @@ module.exports = {
 
     // remove trailing spaces from car numbers
     train.carriages = this.refineCarsNumberFormat(train.carriages);
+    // add the id of the user updating the train
+    train.updated_by = userId;
 
     console.log('Updated Train', train);
 
@@ -143,8 +144,6 @@ module.exports = {
    * @returns a Promise of deleted train Object
    */
   deleteTrain: async function (trainId) {
-    // 1. check if user is authorized
-
     // checks if train exists and handle errors
     const train = await this.getTrainById(trainId);
 

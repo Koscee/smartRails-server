@@ -25,13 +25,12 @@ const RouteSchema = new Schema(
           fromIndex: Number,
           toIndex: Number,
           distance: Number, // unit in km
-          /* duration: String, // unit in sec  use train to calc this */
         },
       ],
       default: [],
     },
 
-    total_dist: Number, // unit in km  required: ??
+    total_dist: Number, // unit in km
   },
 
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
@@ -67,7 +66,7 @@ RouteSchema.pre('save', async function (next) {
         to: subStops[j].en_name,
         fromIndex: i,
         toIndex: i + j + 1,
-        distance: distanceInKm,
+        distance: parseFloat(distanceInKm.toFixed(1)),
       });
     }
   }
