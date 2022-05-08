@@ -10,7 +10,7 @@ const use = (fn) => (req, res, next) => {
 /**
  * An Endpoint to fetch all the lists of seats of trains
  * @route /api/trains/seats   (?train_no=<value>&car_no=<value>&sno=<value>)
- * @access public
+ * @access private
  */
 router.get(
   '/',

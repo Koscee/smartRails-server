@@ -32,7 +32,6 @@ const UserSchema = new Schema(
     phone_no: {
       type: String,
       default: '',
-      //   validate: [checkFieldBlank, 'phone_no should not be blank'],
     },
 
     is_loggedIn: { type: String, default: false },

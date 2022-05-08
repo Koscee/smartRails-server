@@ -40,7 +40,6 @@ module.exports = {
 
     // Get user from db
     const foundUser = email && (await User.findOne({ email }));
-    console.log(foundUser);
     if (!foundUser) {
       throw ApiError.badRequest(mssg);
     }
@@ -80,7 +79,7 @@ module.exports = {
   },
 
   /**
-   * Finds all users and returns their lists
+   * Finds and returns a list of all users
    * @param {String} currentUserId
    * @returns a Promise array of user Objects.
    */
@@ -132,7 +131,7 @@ module.exports = {
     Object.keys(userProps).forEach((key) => {
       user[key] = userProps[key];
     });
-    console.log('Updated user', user);
+
     let updatedUser = await user.save();
     updatedUser = filterObjectKeys({ ...updatedUser._doc }, ['password']);
     return Promise.resolve(updatedUser);

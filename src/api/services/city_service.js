@@ -3,7 +3,7 @@ const { City } = require('../models');
 
 module.exports = {
   /**
-   * Finds all cities and returns their lists
+   * Finds and returns a list of all the cities
    * @returns a Promise array of city objects.
    */
   getCities: async function () {
@@ -12,7 +12,7 @@ module.exports = {
   },
 
   /**
-   * Finds and a particular city using the provided cityId
+   * Finds a particular city using the provided cityId
    * @param {Number} cityId an Id (String)
    * @returns a Promise of city Object
    */
@@ -39,7 +39,7 @@ module.exports = {
   },
 
   /**
-   * Finds and a particular city using the provided cityName
+   * Finds a particular city using the provided cityName
    * @param {Number} cityName an Id (String)
    * @returns a Promise of city Object
    */

@@ -9,7 +9,6 @@ module.exports = {
     const token = jwt.sign(payload, process.env.JWTSECRET, {
       expiresIn: EXPIRATION_TIME,
     });
-    console.log('Token: ', token);
     return token;
   },
 

@@ -8,6 +8,7 @@ module.exports = {
   register: async function (req, res, next) {
     const userData = req.body;
     const { isAdmin } = req;
+
     const newUser = await userService.registerUser(userData, isAdmin);
     res.status(HttpStatus.CREATED).send(newUser);
   },
@@ -15,6 +16,7 @@ module.exports = {
   /* ****  @METHOD: handles POST request to /api/users/login *** */
   login: async function (req, res, next) {
     const userDetails = req.body;
+
     const tokenObj = await userService.authenticateUser(userDetails);
     res.status(HttpStatus.OK).send(tokenObj);
   },
@@ -30,6 +32,7 @@ module.exports = {
   /* ****  @METHOD: handles GET request to /api/users *** */
   getAll: async function (req, res, next) {
     const { user } = req;
+
     const users = await userService.getUsers(user.id);
     res.status(HttpStatus.OK).send(users);
   },
@@ -37,6 +40,7 @@ module.exports = {
   /* ****  @METHOD: handles GET request to /api/users/:id *** */
   getById: async function (req, res, next) {
     const userId = req.params.id;
+
     const user = await userService.getUserById(userId);
     res.status(HttpStatus.OK).send(user);
   },
@@ -45,6 +49,7 @@ module.exports = {
   update: async function (req, res, next) {
     const userId = req.params.id;
     const userProps = req.body;
+
     const updatedUser = await userService.updateUser(userId, userProps);
     res.status(HttpStatus.OK).send(updatedUser);
   },
@@ -52,6 +57,7 @@ module.exports = {
   /* ****  @METHOD: handles DELETE request to /api/users/:id *** */
   delete: async function (req, res, next) {
     const userId = req.params.id;
+
     const deletedUser = await userService.deleteUser(userId);
     res
       .status(HttpStatus.OK)

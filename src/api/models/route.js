@@ -43,7 +43,6 @@ RouteSchema.pre('save', async function (next) {
   const stations = foundStations.sort(
     (a, b) => this.stops.indexOf(a._id) - this.stops.indexOf(b._id)
   );
-  // console.log('ROUTE STOPS', stations);
 
   const stopsCombination = [];
 

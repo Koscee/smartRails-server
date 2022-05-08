@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-const connectDB = async (dbName) => {
-  const dbURI = `mongodb://localhost:27017/${dbName}`;
+const connectDB = async (dbURI) => {
+  const mongodbURI = dbURI || 'mongodb://localhost:27017/smartrails';
 
   try {
-    await mongoose.connect(dbURI);
-    console.log(`Connected to ${dbName} database successfuly!`);
+    await mongoose.connect(mongodbURI);
+    console.log(`Connected to database successfuly!`);
   } catch (error) {
     console.error(error.message);
   }

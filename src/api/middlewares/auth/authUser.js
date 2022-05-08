@@ -12,7 +12,6 @@ const { HEADER_STRING, TOKEN_PREFIX } = SECURITY_CONSTANTS;
 function authUser(req, res, next) {
   // Get authorization header string
   const authHeader = req.headers[HEADER_STRING];
-  console.log('HEADERS', req.headers);
 
   // Check if token exists in header string
   const token =
@@ -27,7 +26,6 @@ function authUser(req, res, next) {
   try {
     // Verify token
     const decoded = verifyToken(token);
-    console.log(decoded);
     req.user = decoded;
     next();
   } catch (err) {

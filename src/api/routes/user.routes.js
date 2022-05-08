@@ -41,7 +41,7 @@ router.post('/register', use(userController.register));
 /**
  * An Endpoint for admin registration
  * @route /api/users/admin/register
- * @access public
+ * @access private
  */
 router.post('/admin/register', setAsAdmin, use(userController.register));
 

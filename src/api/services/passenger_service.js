@@ -20,7 +20,6 @@ module.exports = {
     // link with user
     passengerData.added_by = userId;
     // create and save new passenger to the db
-    console.log(passengerData);
     return Promise.resolve(Passenger.create(passengerData));
   },
 
@@ -78,8 +77,6 @@ module.exports = {
     Object.keys(passengerProps).forEach((key) => {
       passenger[key] = passengerProps[key];
     });
-
-    console.log('Updated passenger', passenger);
 
     // save record
     return Promise.resolve(passenger.save());

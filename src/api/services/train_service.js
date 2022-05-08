@@ -37,12 +37,11 @@ module.exports = {
     trainData.added_by = userId;
 
     // create and save new train to the db
-    console.log(trainData);
     return Promise.resolve(Train.create(trainData));
   },
 
   /**
-   * Finds all trains and returns their lists
+   * Finds and returns a list of all the trains
    * @returns a Promise array of train objects.
    */
   getTrains: function () {
@@ -56,7 +55,7 @@ module.exports = {
   },
 
   /**
-   * Finds and a particular train using the provided trainId
+   * Finds a particular train using the provided trainId
    * @param {String} trainId an Id (String)
    * @returns a Promise of train Object
    */
@@ -131,8 +130,6 @@ module.exports = {
     train.carriages = this.refineCarsNumberFormat(train.carriages);
     // add the id of the user updating the train
     train.updated_by = userId;
-
-    console.log('Updated Train', train);
 
     // save record
     return Promise.resolve(train.save());

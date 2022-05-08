@@ -47,7 +47,6 @@ module.exports = {
 
       if (reducedDist <= range) {
         basePrice += pricePerKm * reducedDist * percntChargeValue;
-        // console.log('reducedDist < range', basePrice, reducedDist);
         reducedDist = 0;
         break;
       }
@@ -55,7 +54,6 @@ module.exports = {
       if (reducedDist > range) {
         basePrice += pricePerKm * range * percntChargeValue;
         reducedDist -= range;
-        // console.log('reducedDist > range', basePrice, range);
       }
     }
 
@@ -65,11 +63,9 @@ module.exports = {
     }
 
     basePrice += basePrice * (INSURANCE_RATE + MISCELLANEOUS_RATE);
-    console.log('BASE_PRICE WITHOUT SPEED CHARGE', Math.round(basePrice) || 0);
 
     basePrice = addSpeedFare(trainSpeed, basePrice);
 
-    console.log('BASE_PRICE WITH SPEED CHARGE', Math.round(basePrice) || 0);
     return Math.round(basePrice) || 0;
   },
 };

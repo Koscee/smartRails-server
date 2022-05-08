@@ -56,7 +56,6 @@ module.exports = {
           wait_time: i === stops.length - 1 ? '--' : waitTime,
           dep_date: i === stops.length - 1 ? '--' : jrnyDate.format(dateFormat),
           dep_time: i === stops.length - 1 ? 'final stop' : depTime,
-          //   jrnyDuration: jrnyDuration / 3600,
         });
       }
     }
@@ -172,13 +171,7 @@ module.exports = {
       fromIndex,
       toIndex,
     }));
-    console.log('AVAL_JRNYS', aval_jrnys);
     await updateSeats(train.train_no, { aval_jrnys, status: true });
-
-    console.log(pathsInfo.length);
-    console.log(stopsTimeInfo);
-    console.log('Start Date', startDate);
-    console.log('End Date', jrnyEndDate.format(dateFormat));
 
     // save train schedules to the db
     return Promise.resolve(Schedule.create(schedules));
@@ -190,7 +183,6 @@ module.exports = {
    * @returns a Promise array of schedule objects.
    */
   getSchedules: function (searchFilter) {
-    console.log(searchFilter);
     return Promise.resolve(Schedule.find(searchFilter).sort({ distance: 1 }));
   },
 
@@ -238,7 +230,7 @@ module.exports = {
     const noOfSchedules = await Schedule.find({
       train_no: train.train_no,
     }).count();
-    console.log('COUNT', noOfSchedules);
+
     if (noOfSchedules < 1) {
       throw ApiError.badRequest(
         `There is no schedule to update for train '${train.train_no}'`
@@ -288,8 +280,6 @@ module.exports = {
       start_time: `${startDate} ${startTime}`,
       end_time: jrnyEndDate.format(`${dateFormat} ${timeFormat}`),
     });
-
-    console.log('Updated Schedule', scheduleBulkUpdates);
 
     // update train schedules
     await Schedule.bulkWrite(scheduleBulkUpdates);

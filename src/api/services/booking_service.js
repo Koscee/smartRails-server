@@ -64,7 +64,6 @@ module.exports = {
         pssngrOrigin,
         pssngrDest
       );
-      // TODO: convert to an Error instance
       if (!avalSeat) throw ApiError.badRequest('Seat not available');
 
       // lock the seat to prevent concurrent booking
@@ -92,7 +91,6 @@ module.exports = {
         }
         return !isPathInvalid;
       });
-      console.log('REMAINING PATHS', aval_jrnys);
 
       avalSeat.aval_jrnys = aval_jrnys;
       // change seat status to unlock the seat
@@ -101,7 +99,6 @@ module.exports = {
       }
       // save updated seat record
       await avalSeat.save();
-      console.log('UPDATED_SEAT: ', avalSeat);
 
       // update train car available tickets count in schedule
       await scheduleService.updateAvailableTicketsCount(
@@ -120,7 +117,6 @@ module.exports = {
         { upsert: true }
       );
       const passenger = await Passenger.findOne({ ID_no, ID_type });
-      console.log('BOOKING_PASSENGER: ', passenger);
 
       // generate order
       const newOrder = {
@@ -194,7 +190,6 @@ module.exports = {
    * @returns a success or failure status.
    */
   cancelBooking: async function (bookingId) {
-    // TODO: check if user is authorized
     try {
       // find booking
       const foundOrder = await this.getBookingById(bookingId);
@@ -239,8 +234,6 @@ module.exports = {
         },
         []
       );
-      console.log('restored_aval_jrnys', restored_aval_jrnys);
-      console.log('restoredJrnyPaths', restoredJrnyPaths);
 
       // update seat aval_jrnys with restored seat jrnys paths... set seat status = true
       await Seat.updateOne(
@@ -293,9 +286,7 @@ module.exports = {
     Object.keys(requestData).forEach((key) => {
       foundOrder[key] = requestData[key];
     });
-    console.log('Updated Order', foundOrder);
 
-    /** TODO: call pre save middleware on booking schema to update or upsert passnger */
     // save record
     return Promise.resolve(foundOrder.save());
   },

@@ -31,23 +31,32 @@ module.exports = {
     return location;
   },
 
-  /* **** @METHOD: handles creating a new station *** */
+  /**
+   * Creates a new station using the provided stationProps
+   * @param {station} stationProps an Object of station props
+   * @returns a Promise of station Object
+   */
   addStation: async function (stationProps) {
     // build station data
     const newStation = await this.buildStationData(stationProps);
-
-    console.log('New Station ', newStation);
 
     // create and save new station to the db
     return Promise.resolve(Station.create(newStation));
   },
 
-  /* **** @METHOD: handles getting all lists of stations *** */
+  /**
+   * Finds and returns a list of all the stations
+   * @returns a Promise array of station objects.
+   */
   getStations: function () {
     return Promise.resolve(Station.find({}).sort({ updated_at: -1 }));
   },
 
-  /* **** @METHOD: handles getting a particular station by its Id *** */
+  /**
+   * Finds a particular station using the provided stationId
+   * @param {String} stationId an Id (String)
+   * @returns a Promise of station Object
+   */
   getStationById: async function (stationId) {
     const mssg = `Station with id '${stationId}' was not found.`;
 
@@ -71,7 +80,11 @@ module.exports = {
     }
   },
 
-  /* **** @METHOD: handles getting a particular station by its name *** */
+  /**
+   * Finds a particular station using the provided stationName
+   * @param {String} stationName
+   * @returns a Promise of station Object
+   */
   getStationByName: async function (stationName) {
     const mssg = `Station with name '${stationName}' was not found.`;
 
@@ -88,13 +101,13 @@ module.exports = {
     return foundStation;
   },
 
-  /* **** @METHOD: handles updating a particlar station by its Id *** */
+  /**
+   * Updates an existing station using the provided stationId and stationProps
+   * @param {String} stationId a station id
+   * @param {station} stationProps an Object of station props
+   * @returns a Promise of updated station Object
+   */
   updateStation: async function (stationId, stationProps) {
-    /**
-     * only these fields should be accessible for update in the frontEnd
-     * { type, counters, is_closed, tel_no }
-     */
-
     // checks if station exists and handle errors
     const station = await this.getStationById(stationId);
     const stationUpdateData = await this.buildStationData(stationProps);
@@ -103,13 +116,15 @@ module.exports = {
       station[key] = stationUpdateData[key];
     });
 
-    console.log('Update Station', station);
-
     // if exist update the record
     return Promise.resolve(station.save());
   },
 
-  /* **** @METHOD: handles deleting a particular station by its Id *** */
+  /**
+   * Deletes an existing station using the provided stationId
+   * @param {String} stationId a station id
+   * @returns a Promise of deleted station Object
+   */
   deleteStation: async function (stationId) {
     // checks if station exists and handle errors
     const station = await this.getStationById(stationId);

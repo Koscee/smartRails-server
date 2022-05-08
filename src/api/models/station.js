@@ -27,21 +27,17 @@ const StationSchema = new Schema(
       required: [true, 'location is required'],
     },
 
-    // routes: { type: Schema.Types.ObjectId, ref: route },
-
     city: {
       en_name: String,
       cn_name: String,
       state: String,
-    }, // populate to get city en_name, tag and state
+    },
 
     counters: [String],
 
     is_closed: { type: Boolean, default: false },
 
     tel_no: String,
-
-    // service_hrs: String,
   },
 
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }

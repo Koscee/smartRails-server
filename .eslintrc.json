@@ -14,7 +14,7 @@
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "node/no-unpublished-require": ["error", { "allowModules": ["supertest"] }],
     "no-unused-vars": "warn",
-    "no-console": "off",
+    "no-console": "warn",
     "func-names": "off",
     "camelcase": "off",
     "no-process-exit": "warn",

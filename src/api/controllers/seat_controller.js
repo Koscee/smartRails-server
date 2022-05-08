@@ -9,7 +9,6 @@ module.exports = {
    */
   getAll: async function (req, res, next) {
     // call the seatService getSeats method
-    console.log('QUERY', req.query);
     const seats = await seatService.getSeats(req.query);
     res.status(HttpStatus.OK).send(seats);
   },

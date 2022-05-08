@@ -8,7 +8,7 @@ const app = express();
 
 // connect to the database
 if (process.env.NODE_ENV !== 'test') {
-  connectDB('smartrails');
+  connectDB(process.env.MONGO_URI);
 }
 
 // for parsing application/json

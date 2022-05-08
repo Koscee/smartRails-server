@@ -17,8 +17,6 @@ const TrainSchema = new Schema(
       },
     },
 
-    // train_type: String
-
     total_cars: { type: Number, default: 0 },
 
     pssngr_capacity: { type: Number, default: 0 },
@@ -55,7 +53,6 @@ const TrainSchema = new Schema(
 
 // calculates the total_cars and pssngr_capacity before saving a train
 TrainSchema.pre('save', function (next) {
-  console.log('TRAIN PRE-SAVE TRIGGERED');
   let totalNumOfCars = 0;
   let totalNumOfPssngrs = 0;
 
@@ -100,9 +97,8 @@ TrainSchema.post('save', async (doc, next) => {
   };
 
   await generateSeats();
-
-  console.log('TRAIN POST SAVE seats', seats);
   await Seat.create(seats);
+
   next();
 });
 

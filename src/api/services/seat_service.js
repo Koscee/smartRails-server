@@ -14,14 +14,10 @@ module.exports = {
     }));
     const query = filters.length < 1 ? {} : { $and: [...filters] };
 
-    console.log('QUERY FILTERS', filters);
-
     try {
       const seats = await Seat.find(query).sort({ train_no: 1 }).select('-__v');
-      console.log('SEATS COUNT', seats.length);
       return seats;
     } catch (error) {
-      //   console.log('Error Keys', Object.keys(error));
       throw ApiError.badRequest(`${error.path} is not a valid url query key`);
     }
   },

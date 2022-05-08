@@ -13,14 +13,12 @@ module.exports = {
     trainTypeData.max_speed = parseFloat(max_speed);
     trainTypeData.min_speed = parseFloat(min_speed);
 
-    console.log('New TrainClass', trainTypeData);
-
     // create and save new trainType to the db
     return Promise.resolve(TrainType.create(trainTypeData));
   },
 
   /**
-   * Finds all trainTypes and returns their lists
+   * Finds and returns a list of all trainTypes
    * @returns a Promise array of trainType objects.
    */
   getTrainTypes: function () {
@@ -30,7 +28,7 @@ module.exports = {
   },
 
   /**
-   * Finds and a particular trainType using the provided trainTypeId
+   * Finds a particular trainType using the provided trainTypeId
    * @param {String} trainTypeId an Id (String)
    * @returns a Promise of trainType Object
    */
@@ -73,8 +71,6 @@ module.exports = {
     Object.keys(trainTypeProps).forEach((key) => {
       trainType[key] = trainTypeProps[key];
     });
-
-    console.log('Updated TrainType', trainType);
 
     // save record
     return Promise.resolve(trainType.save());

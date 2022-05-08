@@ -74,7 +74,7 @@ module.exports = {
   },
 
   /**
-   * Finds all routes and returns their lists
+   * Finds and returns a list of all routes
    * @returns a Promise array of route objects.
    */
   getRoutes: async function () {
@@ -87,7 +87,7 @@ module.exports = {
   },
 
   /**
-   * Finds and a particular route using the provided routeId
+   * Finds a particular route using the provided routeId
    * @param {String} routeId an Id (String)
    * @returns a Promise of route Object
    */
@@ -103,7 +103,8 @@ module.exports = {
         throw ApiError.notFound(mssg);
       }
 
-      // If exist, remove the start and end station from the stops to avoid error during update.
+      // If exist, remove the start and end station from the stops
+      // to avoid error during update.
       foundRoute.stops = foundRoute.stops.filter(
         (_, index) => index !== 0 && index !== foundRoute.stops.length - 1
       );
@@ -201,7 +202,6 @@ module.exports = {
 
         totalDistance += distanceInKm;
       }
-      console.log(`Total distance: ${totalDistance}km`);
 
       return parseFloat(totalDistance.toFixed(1));
     } catch (error) {
@@ -209,16 +209,4 @@ module.exports = {
       throw error;
     }
   },
-
-  /**
-   * Finds an existing route using the provided startStation endStation
-   * @returns a Promise of route Object
-   */
-  /*  getRouteByStartAndEndStation: async function (startStation, endStation) {
-    const foundRoute = await Route.findOne({
-      $and: [{ start_station: startStation }, { end_station: endStation }],
-    });
-
-    return foundRoute;
-  }, */
 };
