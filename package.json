@@ -5,9 +5,6 @@
   "author": "Koscee",
   "license": "ISC",
   "main": "./src/index.js",
-  "engines": {
-    "node": "14.x"
-  },
   "apidoc": {
     "title": "smartRails Api Documentation",
     "name": "smartRails",
