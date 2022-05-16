@@ -88,7 +88,7 @@ const PassengerSchema = new Schema(
 // creates a full_name virtual field
 PassengerSchema.virtual('full_name').get(function () {
   const { first_name, middle_name, last_name } = this;
-  return `${first_name} ${middle_name} ${last_name}`;
+  return `${first_name}${middle_name ? ` ${middle_name}` : ''} ${last_name}`;
 });
 
 const Passenger = mongoose.model('passenger', PassengerSchema);
