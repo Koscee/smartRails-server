@@ -58,7 +58,7 @@ module.exports = {
     }, 0);
 
     const totalRefundCharges =
-      refundSummary.totalPaidAmount - refundSummary.totalRefundAmount;
+      refundSummary.totalPaidAmount - refundSummary.totalRefundAmount || 0;
     const totalRevenue = purchaseSummary.totalPaidAmount + totalRefundCharges;
     const purchaseRate = (purchaseSummary.count / totalBookings) * 100;
     const refundRate = (refundSummary.count / totalBookings) * 100;
